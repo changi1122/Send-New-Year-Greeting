@@ -43,7 +43,7 @@ namespace SendNewYearGreeting.Classes
             return;
         }
 
-        // Check if the account file has accountSid and authToken exists
+        //Check if the account file has accountSid and authToken exists
         public static bool CheckAccountExists()
         {
             string target = "account.txt";
@@ -63,7 +63,7 @@ namespace SendNewYearGreeting.Classes
             string authToken;
 
             //Read Twilio accountSid and authToken
-            FileStream fs = new FileStream("account.txt", FileMode.Open, FileAccess.Read, FileShare.None);
+            FileStream fs = new FileStream("account.txt", FileMode.Open, FileAccess.Read, FileShare.Read);
             StreamReader sr = new StreamReader(fs, Encoding.UTF8);
             accountSid = sr.ReadLine();
             authToken = sr.ReadLine();
