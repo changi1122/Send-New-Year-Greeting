@@ -21,7 +21,7 @@ namespace SendNewYearGreeting.Classes
             Console.WriteLine("> del : 삭제 후 입력");
             Console.WriteLine();
 
-            Console.WriteLine(">");
+            Console.Write("> ");
             string cmd = Console.ReadLine();
             
             if (cmd == "add")
@@ -63,12 +63,20 @@ namespace SendNewYearGreeting.Classes
 
                 Address add = new Address(name, tel);
                 addresses.Add(add);
+
+                Console.WriteLine();
             }
             return;
         }
 
         private static void ModifyAddress(List<Address> addresses)
         {
+            if (!System.IO.File.Exists("address.txt"))
+            {
+                Console.WriteLine("전화번호가 존재하지 않습니다.");
+                return;
+            }
+
             while (true)
             {
                 //Print whole list
@@ -78,8 +86,8 @@ namespace SendNewYearGreeting.Classes
 
                 Console.WriteLine();
                 Console.WriteLine("수정할 전화번호의 순번을 입력하세요. (미입력 후 엔터를 눌러 종료)");
-
                 Console.Write(">");
+                
                 string strNumber = Console.ReadLine();
                 if (strNumber == "")
                     break;
@@ -126,6 +134,7 @@ namespace SendNewYearGreeting.Classes
                 sw.WriteLine(addresses[i].tel);
             }
             sw.Close();
+            fs.Close();
 
             //Swap new file for account file
             if (File.Exists("address.txt"))
@@ -140,7 +149,7 @@ namespace SendNewYearGreeting.Classes
             if (!File.Exists("address.txt"))
             {
                 Console.WriteLine("전화번호가 존재하지 않습니다.");
-                return null;
+                return new List<Address>();
             }
 
             //Address List
@@ -151,6 +160,7 @@ namespace SendNewYearGreeting.Classes
             StreamReader sr = new StreamReader("address.txt", Encoding.UTF8);
             string temp = sr.ReadToEnd();
             sr.Close();
+            fs.Close();
             string[] lines = temp.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             
             //Add to list
